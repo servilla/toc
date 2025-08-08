@@ -1,0 +1,14 @@
+[workspace]
+authors = ["Mark Servilla <mark.servilla@gmail.com>"]
+channels = ["conda-forge"]
+name = "toc"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = ">=3.13.5,<3.14"
+daiquiri = ">=3.0.0,<4"
+click = ">=8.2.1,<9"
+pixi-pycharm = ">=0.0.8,<0.0.9"

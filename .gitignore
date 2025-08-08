@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# JetBrains
+.idea/
+
+# Pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# project
+.log
+config.py
