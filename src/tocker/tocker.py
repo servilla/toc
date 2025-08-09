@@ -69,7 +69,7 @@ def tock(ctx, md: str, depth: int = 6, skip: int = 1):
     if Path(md).exists and Path(md).is_file():
         tocks.tock(Path(md), depth=depth, skip=skip, backup=backup)
     else:
-        msg = f"Error: Invalid value for 'MD': '{md}' is not is not a regular file."
+        msg = f"Error: Invalid value for 'MD': '{md}' does not exist or is not a regular file."
         print(msg)
         exit(1)
 
@@ -91,7 +91,7 @@ def detock(ctx, md: str):
     if Path(md).exists and Path(md).is_file():
         tocks.detock(Path(md), backup=backup)
     else:
-        msg = f"Error: Invalid value for 'MD': '{md}' is not is not a regular file."
+        msg = f"Error: Invalid value for 'MD': '{md}' does not exist or is not a regular file."
         print(msg)
         exit(1)
 
@@ -115,7 +115,7 @@ def retock(ctx, md: str, depth: int = 6, skip: int = 1):
     if Path(md).exists and Path(md).is_file():
         tocks.retock(Path(md), depth=depth, skip=skip, backup=backup)
     else:
-        msg = f"Error: Invalid value for 'MD': '{md}' is not is not a regular file."
+        msg = f"Error: Invalid value for 'MD': '{md}' does not exist or is not a regular file."
         print(msg)
         exit(1)
 
