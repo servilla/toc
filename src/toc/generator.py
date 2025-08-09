@@ -52,17 +52,18 @@ def generate(md: Path, depth: int = -1, backup: bool = True):
         if re.match(pattern, line):
             header_level = line.split(" ", maxsplit=1)[0]
             header = line.split(" ", maxsplit=1)[1]
-            anchor_header = header.strip().lower().replace(" ", "_")
+            anchor_header = (re.sub(r'[^a-zA-Z]+', ' ', header)).strip().lower().replace(" ", "_")
             anchor = f"<a id=\"{anchor_header}\"></a>"
-            lines[line_no] = f"{header_level} {anchor} {header}"
+            lines[line_no] = f"{header_level} {anchor} {header.strip()} [^](#top)\n"
             if len(header_level) < min_toc_depth:
                 min_toc_depth = len(header_level)
             toc_depth = len(header_level)
-            toc.append(f"{' ' * toc_depth}* [{header.strip()}](#{anchor_header})\n")
+            toc.append(f"{'    ' * toc_depth}* [{header.strip()}](#{anchor_header})\n")
 
     for i in range(1, len(toc)):
-        toc[i] = toc[i][min_toc_depth:]
+        toc[i] = toc[i][min_toc_depth * 4:]
 
+    lines.insert(0, "<a id=\"top\"></a>\n")
     lines[toc_insert_line:toc_insert_line + 1] = toc
 
     with md.open("w") as f:
