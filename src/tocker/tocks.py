@@ -134,7 +134,21 @@ def _min_toc_depth(headers: list) -> int:
     return min_toc_depth
 
 def detock(md: Path, backup: bool = True):
+    """
+    Removes the table of contents (TOC) and anchors from a markdown file.
 
+    This function processes a markdown file by removing any existing TOC and
+    all anchor elements. Additionally, it optionally creates a backup of the
+    original file before modification. The function is intended to simplify
+    markdown files by cleaning up unnecessary elements.
+
+    Parameters:
+    md : Path
+        The path to the markdown file to be processed.
+    backup : bool, optional
+        Indicates whether to create a backup of the file before making
+        modifications. Defaults to True.
+    """
     with md.open() as f:
         lines = f.readlines()
 
@@ -180,5 +194,19 @@ def _get_toc_end(lines: list) -> int:
 
 
 def retock(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
+    """
+    Retock the content of a markdown file by performing detock and tock operations.
+
+    This function combines the operations of detocking and tocking on the
+    provided markdown file. It ensures the original file is optionally
+    backed up, removes specific content via detock, and regenerates its
+    content with a specific depth and skip configuration through tock.
+
+    Parameters:
+        md (Path): The path to the markdown file to process.
+        depth (int): The depth parameter for the tock operation, default is 6.
+        skip (int): The skip parameter for the tock operation, default is 1.
+        backup (bool): Whether to create a backup before modification, default is True.
+    """
     detock(md, backup=backup)
     tock(md, depth=depth, skip=skip, backup=backup)
