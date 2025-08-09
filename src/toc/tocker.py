@@ -19,7 +19,7 @@ from pathlib import Path
 import click
 import daiquiri
 
-import generator
+import tock
 
 
 CWD = Path(".").resolve().as_posix()
@@ -58,7 +58,7 @@ def main(md: str, nobackup: bool = False, depth: int = -1):
     if nobackup: backup = False
 
     if Path(md).is_file():
-        generator.generate(Path(md), depth=depth, backup=backup)
+        tock.generate(Path(md), depth=depth, backup=backup)
     else:
         msg = f"Error: Invalid value for 'MD': '{md}' is not is not a regular file."
         print(msg)
