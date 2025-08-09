@@ -3,7 +3,7 @@
 
 """
 :Mod:
-    tocker
+    tocker_cli
 
 :Synopsis:
 
@@ -19,7 +19,7 @@ from pathlib import Path
 import click
 import daiquiri
 
-import tocks
+from tocker import tocks
 
 
 CWD = Path(".").resolve().as_posix()
@@ -60,7 +60,7 @@ def tock(ctx, md: str, depth: int = 6, skip: int = 1):
            HTML tag "<!-- TOC -->". \n
 
         \b
-        MD: Markdown file for which to generate a table of contents.
+        MD: Markdown file for which to insert a table of contents.
     """
 
     backup = True
@@ -103,10 +103,10 @@ def detock(ctx, md: str):
 @click.pass_context
 def retock(ctx, md: str, depth: int = 6, skip: int = 1):
     """
-        Regenerate and insert a table of contents for the specified Markdown file. /n
+        Regenerate and insert a table of contents for the specified Markdown file. \n
 
         \b
-        MD: Markdown file for which to remove a table of contents.
+        MD: Markdown file for which to reinsert a table of contents.
     """
 
     backup = True
