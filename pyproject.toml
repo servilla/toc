@@ -13,7 +13,7 @@ requires-python = ">=3.13,<3.14"
 dynamic = ["version"]
 
 [project.scripts]
-tocker = "tocker.tocker:tocker"
+tocker = "tocker.tocker_cli:tocker"
 
 [build-system]
 build-backend = "hatchling.build"
@@ -25,3 +25,12 @@ pattern = "(?P<version>\\d+\\.\\d+\\.\\d+)"
 
 [tool.hatch.build.targets.sdist]
 only-include = ["src"]
+exclude = [
+  "*.log"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tocker"]
+exclude = [
+  "*.log"
+]
