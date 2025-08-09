@@ -25,7 +25,7 @@ logger = daiquiri.getLogger(__name__)
 
 @dataclass
 class Header:
-    """Represents a markdown header with its properties."""
+    """Represents a Markdown header with its properties."""
     level: int
     text: str
     anchor: str
@@ -162,6 +162,7 @@ def detock(md: Path, backup: bool = True):
         del lines[toc_begin_line:toc_end_line]
 
     # Remove all anchors
+    lines[0] = re.sub(r"\s<a id=\"top\"></a>", "", lines[0])
     top = re.escape("[^](#top)")
     for line_no in range(len(lines)):
         line = lines[line_no]
