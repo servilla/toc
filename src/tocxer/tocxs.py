@@ -56,7 +56,9 @@ def tocx(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
         None
     """
 
-    #TODO: test to see if a TOC already exists and confirm retocx if it does
+    if _tocxed(md):
+        print(f"{md} appears to already have a TOC, try running detocx first.")
+        exit(1)
 
     headers = []
 
@@ -136,6 +138,25 @@ def _min_toc_depth(headers: list) -> int:
             min_toc_depth = header.level
     return min_toc_depth
 
+
+def _tocxed(md: Path) -> bool:
+    """Determine if a TOC has already been generated."""
+    with md.open() as f:
+        lines = f.readlines()
+        
+    top_pattern = r"\s<a id=\"top\"></a>"
+    toc_pattern = r"## Table of Contents"
+    top = re.escape("[^](#top)")
+    anchor_pattern = fr"\s<a id=\".*\"></a> {top}"
+    for line_no in range(len(lines)):
+        line = lines[line_no]
+        for pattern in (top_pattern, toc_pattern, anchor_pattern):
+            if re.match(pattern, line):
+                return True  # For any match indicating a possible TOC
+        
+    return False
+
+
 def detocx(md: Path, backup: bool = True):
     """
     Removes the table of contents (TOC) and anchors from a Markdown file.
@@ -176,7 +197,7 @@ def detocx(md: Path, backup: bool = True):
 
 
 def _get_toc_begin(lines: list) -> int:
-    """Determine the line number of the TOC begin headerr."""
+    """Determine the line number of the TOC begin header."""
     toc_begin_line = None
     for line_no in range(len(lines)):
         line = lines[line_no]
@@ -212,5 +233,5 @@ def retocx(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
         skip (int): The skip parameter for the tock operation, default is 1.
         backup (bool): Whether to create a backup before modification, default is True.
     """
-    detock(md, backup=backup)
-    tock(md, depth=depth, skip=skip, backup=backup)
+    detocx(md, backup=backup)
+    tocx(md, depth=depth, skip=skip, backup=backup)
