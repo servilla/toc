@@ -43,6 +43,13 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 @click.option("--nobackup", "-nb", is_flag=True, help=help_nobackup)
 @click.pass_context
 def tocxer(ctx, nobackup: bool = False):
+    """
+        Generate and insert a table of contents for the specified Markdown file for all
+        Markdown headers by: \n
+        1. Adding an anchor element for each header and \n
+        2. Inserting the resulting table of contents at the point where it finds the \n
+           HTML tag "<!-- TOC -->". \n
+    """
     ctx.obj = {"nobackup": nobackup}
 
 
@@ -53,11 +60,7 @@ def tocxer(ctx, nobackup: bool = False):
 @click.pass_context
 def tocx(ctx, md: str, depth: int = 6, skip: int = 1):
     """
-        Generate and insert a table of contents for the specified Markdown file for all
-        Markdown headers by: \n
-        1. Adding an anchor element for each header and \n
-        2. Inserting the resulting table of contents at the point where it finds the \n
-           HTML tag "<!-- TOC -->". \n
+        Generate and insert a table of contents for the specified Markdown file. \n
 
         \b
         MD: Markdown file for which to insert a table of contents.
