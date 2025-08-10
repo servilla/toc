@@ -1,7 +1,7 @@
 [workspace]
 authors = ["Mark Servilla <mark.servilla@gmail.com>"]
 channels = ["conda-forge"]
-name = "tocker"
+name = "tocxer"
 platforms = ["linux-64"]
 version = "0.0.1"
 

@@ -3,7 +3,7 @@
 
 """
 :Mod:
-    tock
+    tocxs
 
 :Synopsis:
 
@@ -33,7 +33,7 @@ class Header:
     original_line: str
 
 
-def tock(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
+def tocx(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
     """
     Generates and inserts a Table of Contents (TOC) into a Markdown file. This function identifies
     ATX-formatted headers in the given Markdown file, creates anchors for navigation, and optionally
@@ -45,7 +45,7 @@ def tock(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
         depth (int): The maximum depth of headers to include in the Table of Contents. Defaults to 6
                      (all depths).
         skip (int): Number of initial lines to skip when parsing the file for headers or placeholder.
-                    Defaults to 1.
+                    Defaults to 1 (to skip the opening title header).
         backup (bool): Whether to create a backup of the file before making modifications. Defaults to True.
 
     Raises:
@@ -55,6 +55,9 @@ def tock(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
     Returns:
         None
     """
+
+    #TODO: test to see if a TOC already exists and confirm retocx if it does
+
     headers = []
 
     with md.open() as f:
@@ -93,9 +96,9 @@ def tock(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
 
 def _create_anchor(text: str) -> str:
     """
-    Create an anchor link from header text.
+    Create an anchor link from the header text.
 
-    This follows common markdown anchor conventions:
+    This follows common Markdown anchor conventions:
     - Convert to lowercase
     - Replace spaces and special chars with hyphens
     - Remove multiple consecutive hyphens
@@ -133,18 +136,18 @@ def _min_toc_depth(headers: list) -> int:
             min_toc_depth = header.level
     return min_toc_depth
 
-def detock(md: Path, backup: bool = True):
+def detocx(md: Path, backup: bool = True):
     """
-    Removes the table of contents (TOC) and anchors from a markdown file.
+    Removes the table of contents (TOC) and anchors from a Markdown file.
 
-    This function processes a markdown file by removing any existing TOC and
+    This function processes a Markdown file by removing any existing TOC and
     all anchor elements. Additionally, it optionally creates a backup of the
     original file before modification. The function is intended to simplify
-    markdown files by cleaning up unnecessary elements.
+    Markdown files by cleaning up unnecessary elements.
 
     Parameters:
     md : Path
-        The path to the markdown file to be processed.
+        The path to the Markdown file to be processed.
     backup : bool, optional
         Indicates whether to create a backup of the file before making
         modifications. Defaults to True.
@@ -194,17 +197,17 @@ def _get_toc_end(lines: list) -> int:
     return toc_end_line
 
 
-def retock(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
+def retocx(md: Path, depth: int = 6, skip: int = 1, backup: bool = True):
     """
-    Retock the content of a markdown file by performing detock and tock operations.
+    Regenerate the table of contents of a Markdown file by performing detocx and tocx operations.
 
-    This function combines the operations of detocking and tocking on the
-    provided markdown file. It ensures the original file is optionally
-    backed up, removes specific content via detock, and regenerates its
+    This function combines the operations of detocxing and tocking on the
+    provided Markdown file. It ensures the original file is optionally
+    backed up, removes specific content via detocx, and regenerates its
     content with a specific depth and skip configuration through tock.
 
     Parameters:
-        md (Path): The path to the markdown file to process.
+        md (Path): The path to the Markdown file to process.
         depth (int): The depth parameter for the tock operation, default is 6.
         skip (int): The skip parameter for the tock operation, default is 1.
         backup (bool): Whether to create a backup before modification, default is True.
