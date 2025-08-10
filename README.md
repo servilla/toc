@@ -30,19 +30,24 @@ Commands:
   retocx  Regenerate and insert a table of contents for the specified...
   tocx    Generate and insert a table of contents for the specified...
 ```
-To generate and insert a TOC into a Markdown document, run `tocxer tocx
-<file.md>`. By default, **Tocxer** will backup the original Markdown file before
-modifying it. To avoid this, use the `--nobackup` option. You can specify the
-depth of the ATX header level (e.g., `#`, `##`, ... , `######`) to include in
-the TOC with the `--depth <n>` option, where `<n>` is an integer between 1
-and 6. If you do not specify a depth, **Tocxer** will use the default depth of 6. 
-You can also specify the number of lines to skip from the top of the file 
-with the `--skip <n>` option, where `<n>` is an integer. If you do not specify 
-a skip, **Tocxer** will use the default skip of 1, ignoring what is 
-generally the title header. To remove a **Tocxer** generated TOC from a 
-Markdown document, run `tocxer detocx <file.md>`.  To regenerate a TOC for a 
-Markdown document that has been modified, run `tocxer retocx <file.md>`: 
-this is especially useful if you have modified the Markdown document by adding 
-or removing headers. To display help for a specific command, run `tocxer <cmd>
---help`. For example, to display help for the `retocx` command, run 
-`tocxer retocx --help`.
+To generate and insert a TOC into a Markdown document, add the HTML comment 
+`<!-- TOC -->` into your Markdown document on its own line where you would like
+the TOC to be inserted and then run `tocxer tocx <file.md>` (the HTML 
+comment will not appear in your rendered Markdown, but does remain in the 
+raw Markdown file). By default, **Tocxer** will backup the original
+Markdown file before modifying it. To avoid this, use the `--nobackup`
+option. You can specify the depth of the ATX header level (e.g., `#`, `##`,
+... , `######`) to include in the TOC with the `--depth <n>` option, where
+`<n>` is an integer between 1 and 6. If you do not specify a depth, **Tocxer**
+will use the default depth of 6. You can also specify the number of lines to
+skip from the top of the file with the `--skip <n>` option, where `<n>`
+is an integer. If you do not specify a skip, **Tocxer** will use the default
+skip of 1, ignoring what is generally the title header. To remove a
+**Tocxer** generated TOC from a Markdown document, run `tocxer detocx
+<file.md>`.  To regenerate a TOC for a Markdown document that has been
+modified, run `tocxer retocx <file.md>`: this is especially useful if you
+have modified the Markdown document by adding or removing headers. To display
+help for a specific command, run `tocxer <cmd> --help`. For example, to display
+help for the `retocx` command, run `tocxer retocx --help`.
+
+Disclaimer: use **Tocxer** at your own risk.
